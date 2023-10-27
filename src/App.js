@@ -8,8 +8,7 @@ function App() {
   const [weekList, setWeekList] = useState([]);
   const [subjectList, setSubjectList] = useState([]);
 
-  const [scheduleList, setScheduleList] = useState([]);//Lista de cronograma
-  const [currentList, setCurrentList] = useState([0, 0, 0, 0, 0, 0, 0]); //Lista para ser usada no balanceamento dos dias
+  const [scheduleList, setScheduleList] = useState([[], [], [], [], [], [], []]);//Lista de cronograma
 
   useEffect(() => { //useEffect vai copiar os valores automaticamente quando forem mudados nos inputs para 
     setWeekList([...stateDays]);
@@ -18,9 +17,6 @@ function App() {
       hours: parseInt(materia.hours, 10),
     })));
   }, [stateDays, stateMaterias]);
-
-
-
 
 
   const handleDayChange = (event, index) => {
@@ -47,7 +43,7 @@ function App() {
 
 
   function areAllSubjectsValid() {//Função para checar se todas as matérias estão com os campos preenchidos
-    return (stateMaterias.every(materia => materia.hours > 0) && stateMaterias.every(materia => materia.name != ""));
+    return (stateMaterias.every(materia => materia.hours > 0) && stateMaterias.every(materia => materia.name !== ""));
   }
   function areThereSubjects() {//Função para checar se existem matérias
     return (stateMaterias.length !== 0);
@@ -59,34 +55,47 @@ function App() {
   }
 
 
-
+  function resetValues() {
+    setStateDays([0, 0, 0, 0, 0, 0, 0]);
+    setStateMaterias([]);
+    setScheduleList([[], [], [], [], [], [], []]);
+  }
+  
 
   function functionRandom() {
-    for (let i = 0; i == 1;) {
-      const updatedWeekList = weekList.map((value, index) => {
-        if (value > 0) {
-          currentList[index] += 1; // Adiciona 1 na currentList no índice correspondente
-          return value - 1; // Diminui 1 da weekList
-        } else {
-          return value;
+    const unallocatedSubjects = [...subjectList]; // Lista de matérias não alocadas
+    while (unallocatedSubjects.length > 0) {
+
+      const availableDays = weekList.reduce((available, hours, index) => {//Acumulattor, currentValue, currentIndex
+        if (hours > 0) {
+          available.push(index);
         }
-      });
-      
-      setWeekList(updatedWeekList);
-      setCurrentList(currentList);
-
-
-
-      console.log(weekList);
-      console.log(currentList);
-
-
-      /*
-      if(subjectList.reduce((total, subject) => total + subject.hours, 0) == 0){
-        i = 1;
+        return available;
+      }, []);
+  
+      if (availableDays.length === 0) {
+        break;
       }
-      */
+  
+      const randomDayIndex = Math.floor(Math.random() * availableDays.length);
+      const selectedDay = availableDays[randomDayIndex];
+  
+      const randomSubjectIndex = Math.floor(Math.random() * unallocatedSubjects.length);
+      const selectedSubject = unallocatedSubjects[randomSubjectIndex];
+  
+      const updatedScheduleList = [...scheduleList];
+      updatedScheduleList[selectedDay].push(selectedSubject.name);
+      setScheduleList(updatedScheduleList);
+  
+      weekList[selectedDay]--;
+      selectedSubject.hours--;
+  
+      if (selectedSubject.hours === 0) {
+        unallocatedSubjects.splice(randomSubjectIndex, 1);
+      }
     }
+    console.log(scheduleList);
+
   }
 
 
@@ -106,8 +115,8 @@ function App() {
       return;
     }
 
-
     functionRandom();
+    resetValues();
   }
 
   return (
