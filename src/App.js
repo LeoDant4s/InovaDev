@@ -66,7 +66,8 @@ function App() {
     const unallocatedSubjects = [...subjectList]; // Lista de matérias não alocadas
     while (unallocatedSubjects.length > 0) {
 
-      const availableDays = weekList.reduce((available, hours, index) => {//Acumulattor, currentValue, currentIndex
+      //Separa os dias com horas disponíveis na semana
+      const availableDays = weekList.reduce((available, hours, index) => {//Acumulattor, current value, current index
         if (hours > 0) {
           available.push(index);
         }
@@ -77,24 +78,29 @@ function App() {
         break;
       }
   
+      //Sorteia um dia dentre os disponíveis
       const randomDayIndex = Math.floor(Math.random() * availableDays.length);
       const selectedDay = availableDays[randomDayIndex];
   
+      //Sorteia uma matéria aleatória dentre as disponíveis
       const randomSubjectIndex = Math.floor(Math.random() * unallocatedSubjects.length);
       const selectedSubject = unallocatedSubjects[randomSubjectIndex];
   
+      //Insere o nome da matéria no dia correspondente, cada nome inserido equivale a uma hora
       const updatedScheduleList = [...scheduleList];
       updatedScheduleList[selectedDay].push(selectedSubject.name);
       setScheduleList(updatedScheduleList);
   
+      //Diminui em 1 hora a quantidade de horas disponíveis no dia usado e da matéria selecionada
       weekList[selectedDay]--;
       selectedSubject.hours--;
   
+      //Caso a matéria zere a quantidade de horas necessárias, retira a matéria da lista das matérias não alocadas
       if (selectedSubject.hours === 0) {
         unallocatedSubjects.splice(randomSubjectIndex, 1);
       }
     }
-    console.log(scheduleList);
+    console.log(scheduleList);//log só para checar as atribuições do cronograma
 
   }
 
@@ -102,14 +108,17 @@ function App() {
 
   function generateSchedule() {
 
+    //Checa se existe alguma matéria
     if (!areThereSubjects()) {
       alert("Pelo menos uma matéria precisa ser inserida.");
       return;
     }
+    //Checa se todas as matérias inseridas são válidas
     if (!areAllSubjectsValid()) {
       alert("Certifique-se de que todos os campos das matérias tenham sido preenchidos.");
       return;
     }
+    //Checa se a quantidade de horas na semana é maior ou igual à quantidade de horas que precisa de alocação
     if (!checkHours()) {
       alert("A quantidade de horas livres semanais são menores que a quantidade de horas pretendidas para as matérias.");
       return;
