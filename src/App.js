@@ -9,6 +9,13 @@ function App() {
   const [subjectList, setSubjectList] = useState([]);
 
   const [scheduleList, setScheduleList] = useState([[], [], [], [], [], [], []]);//Lista de cronograma
+  const [showSchedule, setShowSchedule] = useState(false);
+
+  const daysName = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
+  const [displayedSchedule, setDisplayedSchedule] = useState([]);//Lista de cronograma
+
+
+
 
   useEffect(() => { //useEffect vai copiar os valores automaticamente quando forem mudados nos inputs para 
     setWeekList([...stateDays]);
@@ -60,7 +67,7 @@ function App() {
     setStateMaterias([]);
     setScheduleList([[], [], [], [], [], [], []]);
   }
-  
+
 
   function functionRandom() {
     const unallocatedSubjects = [...subjectList]; // Lista de matérias não alocadas
@@ -73,28 +80,29 @@ function App() {
         }
         return available;
       }, []);
-  
+
+
       if (availableDays.length === 0) {
         break;
       }
-  
+
       //Sorteia um dia dentre os disponíveis
       const randomDayIndex = Math.floor(Math.random() * availableDays.length);
       const selectedDay = availableDays[randomDayIndex];
-  
+
       //Sorteia uma matéria aleatória dentre as disponíveis
       const randomSubjectIndex = Math.floor(Math.random() * unallocatedSubjects.length);
       const selectedSubject = unallocatedSubjects[randomSubjectIndex];
-  
+
       //Insere o nome da matéria no dia correspondente, cada nome inserido equivale a uma hora
       const updatedScheduleList = [...scheduleList];
       updatedScheduleList[selectedDay].push(selectedSubject.name);
       setScheduleList(updatedScheduleList);
-  
+
       //Diminui em 1 hora a quantidade de horas disponíveis no dia usado e da matéria selecionada
       weekList[selectedDay]--;
       selectedSubject.hours--;
-  
+
       //Caso a matéria zere a quantidade de horas necessárias, retira a matéria da lista das matérias não alocadas
       if (selectedSubject.hours === 0) {
         unallocatedSubjects.splice(randomSubjectIndex, 1);
@@ -105,6 +113,11 @@ function App() {
   }
 
 
+  function removeSubject(index) {
+    const updateStateMaterias = [...stateMaterias];
+    updateStateMaterias.splice(index, 1);
+    setStateMaterias(updateStateMaterias);
+  }
 
   function generateSchedule() {
 
@@ -124,7 +137,10 @@ function App() {
       return;
     }
 
+    setDisplayedSchedule(scheduleList);//Essa outra lista serve para ser mostrada no resultado final, para poder zerar a lista principal sem risco de erros
     functionRandom();
+    setShowSchedule(true);
+
     resetValues();
   }
 
@@ -154,6 +170,8 @@ function App() {
           <div key={index}>
             <input type='text' className="form-control" value={materia.name} onChange={(event) => handleMateriaChange(event, index, 'name')}></input>
             <input type='number' min="0" max="20" className="form-control" value={materia.hours} onChange={(event) => handleMateriaChange(event, index, 'hours')}></input>
+            <button type="button" class="btn btn-default btn-number" onClick={() => removeSubject(index)}>-</button>
+
           </div>
         )
       })}
@@ -163,6 +181,27 @@ function App() {
         <br></br>
         <button type="button" onClick={generateSchedule} className="btn btn-primary mx-auto">Gerar cronograma</button>
       </div>
+      {showSchedule && (
+        <div>
+          <h3>Cronograma Semanal</h3>
+          <div className="schedule">
+            {daysName.map((day, dayIndex) => (
+              <div key={dayIndex}>
+                <strong>{day}:</strong>
+                {displayedSchedule[dayIndex].length > 0 ? (
+                  displayedSchedule[dayIndex].map((subject, subjectIndex) => (
+                    <p key={subjectIndex}>{subject}</p>
+                  ))
+                ) : (
+                  <p>Nenhum estudo planejado</p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+
     </div>
   );
 }
