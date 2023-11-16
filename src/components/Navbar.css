@@ -1,0 +1,17 @@
+.custom-navbar {
+  background-color: #f4e81c;
+} 
+
+.custom-navbar .navbar-container {
+  width: calc(100vw - 90px);
+  max-width: 1300px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.custom-navbar span {
+  font-family: 'Prompt', sans-serif;
+  color: #22487a;
+  font-weight: 900;
+  font-size: 1.4rem;
+}
