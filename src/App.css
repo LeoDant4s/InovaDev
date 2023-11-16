@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@900&display=swap');
-
 .App {
   text-align: center;
 }
@@ -34,11 +32,11 @@
   from {
     transform: rotate(0deg);
   }
-
   to {
     transform: rotate(360deg);
   }
 }
+
 
 /* cards de horários */
 .cards {

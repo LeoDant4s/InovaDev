@@ -5,50 +5,43 @@ import { Layout } from './components/Layout';
 
 // Default Variables
 const daysName = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
-const defaultStateDays = [0, 0, 0, 0, 0, 0, 0];
-const defaultStateMaterias = [];
-const defaultWeekList = [];
-const defaultSubjectList = [];
-const defaultScheduleList = [[], [], [], [], [], [], []];
-const defaultDisplayedSchedule = [];
-const defaultCurrentPage = 0;
 
 // App
 function App() {
-  const [stateDays, setStateDays] = useState(defaultStateDays);
-  const [stateMaterias, setStateMaterias] = useState(defaultStateMaterias);
+  const [stateDays, setStateDays] = useState([0, 0, 0, 0, 0, 0, 0]);
+  const [stateMaterias, setStateMaterias] = useState([]);
 
-  const [weekList, setWeekList] = useState(defaultWeekList);
-  const [subjectList, setSubjectList] = useState(defaultSubjectList);
+  const [weekList, setWeekList] = useState([]);
+  const [subjectList, setSubjectList] = useState([]);
 
-  const [scheduleList, setScheduleList] = useState(defaultScheduleList);//Lista de cronograma
+  const [scheduleList, setScheduleList] = useState([[], [], [], [], [], [], []]);//Lista de cronograma
   const [showSchedule, setShowSchedule] = useState(false);
 
   
-  const [displayedSchedule, setDisplayedSchedule] = useState(defaultDisplayedSchedule);//Lista de cronograma
+  const [displayedSchedule, setDisplayedSchedule] = useState([]);//Lista de cronograma
 
-  const [currentPage, setCurrentPage] = useState(defaultCurrentPage);
+  const [currentPage, setCurrentPage] = useState(0);
 
 
   useEffect(() => { //useEffect vai copiar os valores automaticamente quando forem mudados nos inputs para 
-    setWeekList([...stateDays]);
-    setSubjectList(stateMaterias.map(materia => ({
-      name: materia.name,
-      hours: parseInt(materia.hours, 10),
-    })));
+      setWeekList([...stateDays]);
+      setSubjectList(stateMaterias.map(materia => ({
+        name: materia.name,
+        hours: parseInt(materia.hours, 10),
+      })));
   }, [stateDays, stateMaterias]);
 
   // Voltar para o início do aplicativo
   const goToMain = () => {
     // Reinicia o estado da aplicação
-    setStateDays(defaultStateDays);
-    setStateMaterias(defaultStateMaterias);
-    setWeekList(defaultWeekList);
-    setSubjectList(defaultSubjectList);
-    setScheduleList(defaultScheduleList);
+    setCurrentPage(0);
+    setWeekList([]);
+    setSubjectList([]);
+    setStateDays([0, 0, 0, 0, 0, 0, 0]);
+    setStateMaterias([]);    
+    setScheduleList([[], [], [], [], [], [], []]);
     setShowSchedule(false);
-    setDisplayedSchedule(defaultDisplayedSchedule);
-    setCurrentPage(defaultCurrentPage);
+    setDisplayedSchedule([]);
   }
 
   const handleDayChange = (event, index) => {
@@ -218,7 +211,7 @@ function App() {
               <div key={index}>
                 <input type='text' className="form-control" value={materia.name} onChange={(event) => handleMateriaChange(event, index, 'name')}></input>
                 <input type='number' min="0" max="20" className="form-control" value={materia.hours} onChange={(event) => handleMateriaChange(event, index, 'hours')}></input>
-                <button type="button" class="btn btn-default btn-number" onClick={() => removeSubject(index)}>-</button>
+                <button type="button" className="btn btn-default btn-number" onClick={() => removeSubject(index)}>-</button>
 
               </div>
             )
@@ -238,7 +231,7 @@ function App() {
           {/* cards com os horarios/dias de estudo */}
           <div className="cards">
             {daysName.map((day, dayIndex) => (
-              <div className="card">
+              <div className="card" key={dayIndex}>
                 <h3>{day}</h3>
                 <div className="card-content">
                   {displayedSchedule[dayIndex].length > 0 ? (
