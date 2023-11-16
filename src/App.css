@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,600;0,700;0,800;1,400&family=Prompt:wght@900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@900&display=swap');
+
 .App {
   text-align: center;
 }
@@ -35,4 +39,45 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+/* cards de horários */
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+
+.card {
+  border: 2px solid #111;
+  width: 360px;
+  min-height: 200px;
+  overflow: hidden;
+}
+
+.card h3 {
+  background-color: #22487a;
+  padding: 6px;
+  color: #fff;
+  text-align: center;
+  font-size: 1.4rem;
+}
+
+.card .nada {
+  color: #ea3635;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.card p {
+  font-size: 1.1rem;
+}
+
+.card .card-content {
+  padding: 6px;
+  height: 100%;
 }

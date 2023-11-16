@@ -1,7 +1,12 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 import { BemVindoPage } from './pages/BemVindo';
+import { Layout } from './components/Layout';
 
+// Default Variables
+const daysName = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
+
+// App
 function App() {
   const [stateDays, setStateDays] = useState([0, 0, 0, 0, 0, 0, 0]);
   const [stateMaterias, setStateMaterias] = useState([]);
@@ -12,22 +17,32 @@ function App() {
   const [scheduleList, setScheduleList] = useState([[], [], [], [], [], [], []]);//Lista de cronograma
   const [showSchedule, setShowSchedule] = useState(false);
 
-  const daysName = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
+  
   const [displayedSchedule, setDisplayedSchedule] = useState([]);//Lista de cronograma
 
   const [currentPage, setCurrentPage] = useState(0);
 
 
-
-
   useEffect(() => { //useEffect vai copiar os valores automaticamente quando forem mudados nos inputs para 
-    setWeekList([...stateDays]);
-    setSubjectList(stateMaterias.map(materia => ({
-      name: materia.name,
-      hours: parseInt(materia.hours, 10),
-    })));
+      setWeekList([...stateDays]);
+      setSubjectList(stateMaterias.map(materia => ({
+        name: materia.name,
+        hours: parseInt(materia.hours, 10),
+      })));
   }, [stateDays, stateMaterias]);
 
+  // Voltar para o início do aplicativo
+  const goToMain = () => {
+    // Reinicia o estado da aplicação
+    setCurrentPage(0);
+    setWeekList([]);
+    setSubjectList([]);
+    setStateDays([0, 0, 0, 0, 0, 0, 0]);
+    setStateMaterias([]);    
+    setScheduleList([[], [], [], [], [], [], []]);
+    setShowSchedule(false);
+    setDisplayedSchedule([]);
+  }
 
   const handleDayChange = (event, index) => {
     const updatedDays = [...stateDays]; // Faz uma cópia da lista dos dias
@@ -40,7 +55,7 @@ function App() {
     updatedMaterias[index][attribute] = event.target.value; // Modifica no atributo(name,hour), já que não é só mudar no index
     setStateMaterias(updatedMaterias); // Substitui a lista pela atualizada
   };
-  
+
   function addMateria() {
     setStateMaterias([
       ...stateMaterias, { name: "", hours: 0 } //Copia a lista de stateMaterias atual e adiciona uma nova com nome em branco e quantidade de horas zerada
@@ -51,13 +66,15 @@ function App() {
   function areAllSubjectsValid() {//Função para checar se todas as matérias estão com os campos preenchidos
     return (stateMaterias.every(materia => materia.hours > 0) && stateMaterias.every(materia => materia.name !== ""));
   }
+  
   function areThereSubjects() {//Função para checar se existem matérias
     return (stateMaterias.length !== 0);
   }
+
   function checkHours() {
     const subjectListTotalHours = subjectList.reduce((total, subject) => total + subject.hours, 0);
     const weekTotalHours = weekList.reduce((total, day) => total + day, 0);
-    return subjectListTotalHours <= weekTotalHours;
+    return subjectListTotalHours === weekTotalHours;
   }
 
 
@@ -130,9 +147,9 @@ function App() {
       alert("Certifique-se de que todos os campos das matérias tenham sido preenchidos.");
       return;
     }
-    //Checa se a quantidade de horas na semana é maior ou igual à quantidade de horas que precisa de alocação
+    //Checa se a quantidade de horas na semana é maior ou menor à quantidade de horas que precisa de alocação
     if (!checkHours()) {
-      alert("A quantidade de horas livres semanais são menores que a quantidade de horas pretendidas para as matérias.");
+      alert("A quantidade de horas livres semanais diferentes que a quantidade de horas pretendidas para as matérias.");
       return;
     }
 
@@ -154,7 +171,7 @@ function App() {
 
   // página padrão
   return (
-    <div className="teste">
+    <Layout goToMain={goToMain}> {/* coloca o layout nessa pag */}
       {/* GERAR CRONOGRAMA */}
       {!showSchedule && (
         <>
@@ -162,16 +179,28 @@ function App() {
             <div className="form-group">
               <label>Domingo</label>
               <input type='number' min="0" max="16" className="form-control" value={stateDays[0]} onChange={(event) => handleDayChange(event, 0)}></input>
+            </div>
+            <div className="form-group">
               <label>Segunda</label>
               <input type='number' min="0" max="16" className="form-control" value={stateDays[1]} onChange={(event) => handleDayChange(event, 1)}></input>
+            </div>
+            <div className="form-group">
               <label>Terça</label>
               <input type='number' min="0" max="16" className="form-control" value={stateDays[2]} onChange={(event) => handleDayChange(event, 2)}></input>
+            </div>
+            <div className="form-group">
               <label>Quarta</label>
               <input type='number' min="0" max="16" className="form-control" value={stateDays[3]} onChange={(event) => handleDayChange(event, 3)}></input>
+            </div>
+            <div className="form-group">
               <label>Quinta</label>
               <input type='number' min="0" max="16" className="form-control" value={stateDays[4]} onChange={(event) => handleDayChange(event, 4)}></input>
+            </div>
+            <div className="form-group">
               <label>Sexta</label>
               <input type='number' min="0" max="16" className="form-control" value={stateDays[5]} onChange={(event) => handleDayChange(event, 5)}></input>
+            </div>
+            <div className="form-group">
               <label>Sábado</label>
               <input type='number' min="0" max="16" className="form-control" value={stateDays[6]} onChange={(event) => handleDayChange(event, 6)}></input>
             </div>
@@ -182,7 +211,7 @@ function App() {
               <div key={index}>
                 <input type='text' className="form-control" value={materia.name} onChange={(event) => handleMateriaChange(event, index, 'name')}></input>
                 <input type='number' min="0" max="20" className="form-control" value={materia.hours} onChange={(event) => handleMateriaChange(event, index, 'hours')}></input>
-                <button type="button" class="btn btn-default btn-number" onClick={() => removeSubject(index)}>-</button>
+                <button type="button" className="btn btn-default btn-number" onClick={() => removeSubject(index)}>-</button>
 
               </div>
             )
@@ -198,27 +227,32 @@ function App() {
 
       {/* CRONOGRAMA */}
       {showSchedule && (
-        <div>
-          <h3>Cronograma Semanal</h3>
-          <div className="schedule">
+        <>
+          {/* cards com os horarios/dias de estudo */}
+          <div className="cards">
             {daysName.map((day, dayIndex) => (
-              <div key={dayIndex}>
-                <strong>{day}:</strong>
-                {displayedSchedule[dayIndex].length > 0 ? (
-                  displayedSchedule[dayIndex].map((subject, subjectIndex) => (
-                    <p key={subjectIndex}>{subject}</p>
-                  ))
-                ) : (
-                  <p>Nenhum estudo planejado</p>
-                )}
+              <div className="card" key={dayIndex}>
+                <h3>{day}</h3>
+                <div className="card-content">
+                  {displayedSchedule[dayIndex].length > 0 ? (
+                      <ul>
+                        {displayedSchedule[dayIndex].map((subject, subjectIndex) => (
+                          <li key={subjectIndex}>
+                          <p> {subject}</p>
+                          </li>
+                        ))}
+                      </ul>
+                  ) : (
+                    <p className="nada">Nenhum estudo planejado</p>
+                  )}
+                </div>
               </div>
             ))}
           </div>
-        </div>
+        </>
       )}
 
-
-    </div>
+    </Layout>
   );
 }
 
