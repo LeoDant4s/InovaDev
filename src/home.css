@@ -1,16 +1,35 @@
 
-body{background-image:url(../Img/Baner1.png);
+body{background-image:url(../Img/baner3.png);
     background-repeat: no-repeat;
 background-position: center;
 background-size: cover;
-height: 100vh;}
 
-.paper1{align-items: top
-;
+font-family: 'Arsenal', sans-serif;
 }
 
-.top img{width: 800px;
+h2{color: #044AA4;}
+
+h1{color: #044AA4;}
+
+h1{font-size: 110px;}
+
+.tx-center{ text-align: center;
+    
+}
+.all{
+align-items: center;}
+
+
+
+.button:hover{background-color: red;}
+
+button{background-color: white;
+    width: 17vh;
+    height: 7vh;
+padding: 5px 20px;
+border-radius: 10px;
+cursor: pointer;
+border: none;
 }
 
 
-.
