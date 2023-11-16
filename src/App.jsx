@@ -176,31 +176,31 @@ function App() {
       {!showSchedule && (
         <>
           <form>
-            <div className="form-group dia">
+            <div className="form-group">
               <label>Domingo</label>
               <input type='number' min="0" max="16" className="form-control" value={stateDays[0]} onChange={(event) => handleDayChange(event, 0)}></input>
             </div>
-            <div className="form-group dia">
+            <div className="form-group">
               <label>Segunda</label>
               <input type='number' min="0" max="16" className="form-control" value={stateDays[1]} onChange={(event) => handleDayChange(event, 1)}></input>
             </div>
-            <div className="form-group dia">
+            <div className="form-group">
               <label>Terça</label>
               <input type='number' min="0" max="16" className="form-control" value={stateDays[2]} onChange={(event) => handleDayChange(event, 2)}></input>
             </div>
-            <div className="form-group dia">
+            <div className="form-group">
               <label>Quarta</label>
               <input type='number' min="0" max="16" className="form-control" value={stateDays[3]} onChange={(event) => handleDayChange(event, 3)}></input>
             </div>
-            <div className="form-group dia">
+            <div className="form-group">
               <label>Quinta</label>
               <input type='number' min="0" max="16" className="form-control" value={stateDays[4]} onChange={(event) => handleDayChange(event, 4)}></input>
             </div>
-            <div className="form-group dia">
+            <div className="form-group">
               <label>Sexta</label>
               <input type='number' min="0" max="16" className="form-control" value={stateDays[5]} onChange={(event) => handleDayChange(event, 5)}></input>
             </div>
-            <div className="form-group dia">
+            <div className="form-group">
               <label>Sábado</label>
               <input type='number' min="0" max="16" className="form-control" value={stateDays[6]} onChange={(event) => handleDayChange(event, 6)}></input>
             </div>
