@@ -1,3 +1,51 @@
-.BemVindo-bg {
-  background-color: rgb(174, 169, 169);
+body {
+  background-image: url(../../Img/baner3.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  font-family: 'Arsenal', sans-serif;
+}
+
+h2 {
+  color: #044AA4;
+}
+
+h1 {
+  color: #044AA4;
+}
+
+h1 {
+  font-size: 100px;
+}
+
+.tx-center {
+  text-align: center;
+
+}     
+
+
+.all {
+  align-items: center;
+}
+
+
+
+.button:hover {
+  background-color: red;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  background-color: white;
+  margin-bottom: 5px;
+  width: 30vh;
+  height: 10vh;
+
+  border-radius: 50px;
+  cursor: pointer;
+  border: none;
 }
