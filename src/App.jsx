@@ -17,18 +17,18 @@ function App() {
   const [scheduleList, setScheduleList] = useState([[], [], [], [], [], [], []]);//Lista de cronograma
   const [showSchedule, setShowSchedule] = useState(false);
 
-  
+
   const [displayedSchedule, setDisplayedSchedule] = useState([]);//Lista de cronograma
 
   const [currentPage, setCurrentPage] = useState(0);
 
 
   useEffect(() => { //useEffect vai copiar os valores automaticamente quando forem mudados nos inputs para 
-      setWeekList([...stateDays]);
-      setSubjectList(stateMaterias.map(materia => ({
-        name: materia.name,
-        hours: parseInt(materia.hours, 10),
-      })));
+    setWeekList([...stateDays]);
+    setSubjectList(stateMaterias.map(materia => ({
+      name: materia.name,
+      hours: parseInt(materia.hours, 10),
+    })));
   }, [stateDays, stateMaterias]);
 
   // Voltar para o início do aplicativo
@@ -38,7 +38,7 @@ function App() {
     setWeekList([]);
     setSubjectList([]);
     setStateDays([0, 0, 0, 0, 0, 0, 0]);
-    setStateMaterias([]);    
+    setStateMaterias([]);
     setScheduleList([[], [], [], [], [], [], []]);
     setShowSchedule(false);
     setDisplayedSchedule([]);
@@ -66,7 +66,7 @@ function App() {
   function areAllSubjectsValid() {//Função para checar se todas as matérias estão com os campos preenchidos
     return (stateMaterias.every(materia => materia.hours > 0) && stateMaterias.every(materia => materia.name !== ""));
   }
-  
+
   function areThereSubjects() {//Função para checar se existem matérias
     return (stateMaterias.length !== 0);
   }
@@ -235,13 +235,13 @@ function App() {
                 <h3>{day}</h3>
                 <div className="card-content">
                   {displayedSchedule[dayIndex].length > 0 ? (
-                      <ul>
-                        {displayedSchedule[dayIndex].map((subject, subjectIndex) => (
-                          <li key={subjectIndex}>
+                    <ul>
+                      {displayedSchedule[dayIndex].map((subject, subjectIndex) => (
+                        <li key={subjectIndex}>
                           <p> {subject}</p>
-                          </li>
-                        ))}
-                      </ul>
+                        </li>
+                      ))}
+                    </ul>
                   ) : (
                     <p className="nada">Nenhum estudo planejado</p>
                   )}
