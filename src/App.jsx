@@ -74,7 +74,7 @@ function App() {
   function checkHours() {
     const subjectListTotalHours = subjectList.reduce((total, subject) => total + subject.hours, 0);
     const weekTotalHours = weekList.reduce((total, day) => total + day, 0);
-    return subjectListTotalHours === weekTotalHours;
+    return subjectListTotalHours <= weekTotalHours;
   }
 
 
@@ -147,9 +147,9 @@ function App() {
       alert("Certifique-se de que todos os campos das matérias tenham sido preenchidos.");
       return;
     }
-    //Checa se a quantidade de horas na semana é maior ou menor à quantidade de horas que precisa de alocação
+    //Checa se a quantidade de horas na semana é maior ou igual à quantidade de horas que precisa de alocação
     if (!checkHours()) {
-      alert("A quantidade de horas livres semanais diferentes que a quantidade de horas pretendidas para as matérias.");
+      alert("A quantidade de horas livres semanais são menores que a quantidade de horas pretendidas para as matérias.");
       return;
     }
 
