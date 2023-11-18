@@ -46,7 +46,9 @@ function App() {
 
   const handleDayChange = (event, index) => {
     const updatedDays = [...stateDays]; // Faz uma cópia da lista dos dias
-    updatedDays[index] = parseInt(event.target.value, 10); // Modifica o valor do dia, transformando para número inteiro, caso não esteja.(O 10 é só para especificar que é um número decimal)
+    const newValue = parseInt(event.target.value, 10);//Pega o valor alterado no campo
+    const minimumValue = Math.min(newValue, 16);//Compara o valor com 16, caso a pessoa tenha colocado mais de 16 horas, o valor é alterado
+    updatedDays[index] = minimumValue; // Modifica o valor do dia
     setStateDays(updatedDays); // Substitui a lista pela atualizada
   };
 
