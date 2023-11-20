@@ -1,45 +1,37 @@
-body {
+
+.all {
+  align-items: center;
   background-image: url(../../Img/baner3.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
 
   font-family: 'Arsenal', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-h2 {
+.all h2 {
   color: #044AA4;
 }
 
-h1 {
+.all h1 {
   color: #044AA4;
-}
-
-h1 {
   font-size: 100px;
 }
 
-.tx-center {
+.all .tx-center {
   text-align: center;
 
-}     
-
-
-.all {
-  align-items: center;
 }
 
-
-
-.button:hover {
-  background-color: red;
-}
-
-a {
+.all a {
   text-decoration: none;
 }
 
-button {
+.all button {
   background-color: white;
   margin-bottom: 5px;
   width: 30vh;
@@ -48,4 +40,8 @@ button {
   border-radius: 50px;
   cursor: pointer;
   border: none;
+}
+
+.all button {
+  margin: 50px 0;
 }

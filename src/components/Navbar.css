@@ -15,3 +15,7 @@
   font-weight: 900;
   font-size: 1.4rem;
 }
+
+.custom-navbar span:hover {
+  cursor: pointer;
+}

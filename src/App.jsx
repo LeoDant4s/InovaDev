@@ -179,6 +179,7 @@ function App() {
       {!showSchedule && (
         <>
           <form>
+            <h3>Quantidade de horas de estudo desejado:</h3>
             <div className="form-group">
               <label>Domingo</label>
               <input type='number' min="0" max="16" className="form-control" value={stateDays[0]} onChange={(event) => handleDayChange(event, 0)}></input>
@@ -222,11 +223,11 @@ function App() {
               </div>
             )
           })}
-          <div className="text-center">
-            <button type="button" onClick={addMateria} className="btn btn-primary mx-auto">Adicionar matéria</button>
+          <div className="actions">
+            <button type="button" onClick={addMateria} className="btn btn-primary">Adicionar matéria</button>
             <br></br>
             <br></br>
-            <button type="button" onClick={generateSchedule} className="btn btn-primary mx-auto">Gerar cronograma</button>
+            <button type="button" onClick={generateSchedule} className="btn btn-primary">Gerar cronograma</button>
           </div>
         </>
       )}

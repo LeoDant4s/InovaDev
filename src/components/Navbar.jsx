@@ -6,7 +6,7 @@ export const NavBar = ({ goToMain }) => {
 
 <nav className="navbar navbar-light custom-navbar">
   <div className="navbar-container">
-    <span onClick={goToMain}> PROJETO INOVADEV
+    <span onClick={goToMain}> INOVADEV
     </span>
   </div>
 </nav>
