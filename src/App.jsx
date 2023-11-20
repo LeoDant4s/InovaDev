@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { BemVindoPage } from './pages/BemVindo';
 import { Layout } from './components/Layout';
 
+
 // Default Variables
 const daysName = ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"];
 
@@ -211,14 +212,17 @@ function App() {
           {stateMaterias.map((materia, index) => {//Literalmente mapeia os elementos existentes no array stateMaterias e expõe um campo para cada
             return (
               <div key={index}>
-                <input type='text' className="form-control" value={materia.name} onChange={(event) => handleMateriaChange(event, index, 'name')}></input>
+                <input type='text' placeholder="Nome da matéria" className="form-control" value={materia.name} onChange={(event) => handleMateriaChange(event, index, 'name')}></input>
                 <input type='number' min="0" max="20" className="form-control" value={materia.hours} onChange={(event) => handleMateriaChange(event, index, 'hours')}></input>
-                <button type="button" className="btn btn-default btn-number" onClick={() => removeSubject(index)}>-</button>
+                <div className="removeButton" onClick={() => removeSubject(index)}>
+                Remover matéria
+                </div>
+
 
               </div>
             )
           })}
-          <div className="text-center"> {/* Parte que tem os botões, mas isso tá feio ainda */}
+          <div className="text-center">
             <button type="button" onClick={addMateria} className="btn btn-primary mx-auto">Adicionar matéria</button>
             <br></br>
             <br></br>
