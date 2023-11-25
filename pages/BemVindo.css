@@ -1,0 +1,51 @@
+
+.all {
+  align-items: center;
+  background-image: url(../../Img/baner3.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-position: center;
+
+  font-family: 'Arsenal', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.all h2 { font-size: 25px;
+  color: #023980;
+}
+
+.all h1 { max-width: 150vw;
+  min-width: 4vw;
+  color: #023980;
+  font-size: 8vw;
+}
+
+
+.all .tx-center {
+  text-align: center;
+
+}
+
+.all a {
+  text-decoration: none;
+}
+
+.all button {
+  background-color: white;
+  margin-bottom: 5px;
+  width: 30vh;
+  height: 10vh;
+
+  border-radius: 50px;
+  cursor: pointer;
+  border: none;
+}
+
+.all button {
+  margin: 50px 0;
+}
+
