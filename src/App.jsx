@@ -74,7 +74,7 @@ function App() {
     return (stateMaterias.length !== 0);
   }
 
-  function checkHours() {
+  function checkHours() {//Checa se a quantidade de horas pretendidas é maior ou igual à quantidade de horas semanais livres
     const subjectListTotalHours = subjectList.reduce((total, subject) => total + subject.hours, 0);
     const weekTotalHours = weekList.reduce((total, day) => total + day, 0);
     return subjectListTotalHours <= weekTotalHours;
