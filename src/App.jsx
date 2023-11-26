@@ -233,6 +233,7 @@ function App() {
       )}
 
       {/* CRONOGRAMA */}
+      {/* Quando o showSchedule estiver como true, aparecerão os elementos abaixo */}
       {showSchedule && (
         <>
           {/* cards com os horarios/dias de estudo */}
